@@ -1,0 +1,6 @@
+---
+- hosts: test-kitchen
+
+  roles:
+    - { role: ansible-consul-tools, consul_tools_name: consul-template, consul_tools_version: 0.12.1 }
+    - { role: ansible-consul-tools, consul_tools_name: consul-replicate, consul_tools_version: 0.2.0 }

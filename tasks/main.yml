@@ -1,0 +1,23 @@
+---
+
+- name: Install unzip
+  apt: name=unzip state=present
+
+- name: Create consul tools work directory
+  file: dest={{ consul_tools_work_dir }} mode=0755 recurse=yes state=directory
+
+- name: Create consul tools bin directory
+  file: dest={{ consul_tools_bin_dir }} mode=0755 recurse=yes state=directory
+
+- name: Get consul tool package checksum file - {{ consul_tools_name }}
+  get_url: url={{ consul_tools_checksum_file_url }} dest={{ consul_tools_work_dir }}
+
+- name: Get checksum of consul tool package - {{ consul_tools_name }}
+  shell: grep {{ consul_tools_pkg }} {{ consul_tools_work_dir }}/{{ consul_tools_checksum_file }}
+  register: chksum
+
+- name: Download consul tool package - {{ consul_tools_name }}
+  get_url: url={{ consul_tools_pkg_url }} dest={{ consul_tools_work_dir }}/{{ consul_tools_pkg }} checksum="sha256:{{ chksum.stdout.split(' ')|first }}"
+
+- name: Install consul tool - {{ consul_tools_name }}
+  unarchive: src={{ consul_tools_work_dir }}/{{ consul_tools_pkg }} dest={{ consul_tools_bin_dir }} copy=no

@@ -1,0 +1,12 @@
+---
+consul_tools_bin_dir:     "/usr/local/bin"
+consul_tools_work_dir:    "/opt/consul"
+
+consul_tools_name:         # Mandatory
+consul_tools_version:      # Mandatory
+consul_tools_pkg:     "{{ consul_tools_name }}_{{ consul_tools_version }}_linux_amd64.zip"
+consul_tools_pkg_url: "https://releases.hashicorp.com/{{ consul_tools_name }}/{{ consul_tools_version }}/{{ consul_tools_pkg }}"
+
+consul_tools_checksum_file:     "{{ consul_tools_name }}_{{ consul_tools_version }}_SHA256SUMS"
+consul_tools_checksum_file_url: "https://releases.hashicorp.com/{{ consul_tools_name }}/{{ consul_tools_version }}/{{ consul_tools_checksum_file }}"
+
